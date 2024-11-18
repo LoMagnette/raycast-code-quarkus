@@ -69,9 +69,11 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
     params.set("nc", config.starterCode ? "false" : "true");
 
     // Add dependencies
-    config.dependencies.forEach((dependency) => {
-      params.append("e", dependency);
-    });
+    if (config.dependencies) {
+      config.dependencies.forEach((dependency) => {
+        params.append("e", dependency);
+      });
+    }
 
     // Return the generated URL
     return `${baseUrl}?${params.toString()}`;
