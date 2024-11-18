@@ -66,7 +66,7 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
     if (config.artifact) params.set("a", config.artifact);
 
     // Add starter code flag
-    params.set("nc", config.starterCode ? "false":"true");
+    params.set("nc", config.starterCode ? "false" : "true");
 
     // Add dependencies
     config.dependencies.forEach((dependency) => {
