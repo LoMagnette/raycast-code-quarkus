@@ -157,7 +157,7 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
     <Form
       actions={
         <ActionPanel>
-          <Action.SubmitForm onSubmit={handleSubmit} />
+          <Action.SubmitForm onSubmit={handleSubmit} title="Generate Project"/>
         </ActionPanel>
       }
     >

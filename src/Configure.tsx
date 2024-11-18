@@ -65,7 +65,7 @@ export function Configure({
     <Form
       actions={
         <ActionPanel>
-          <Action.SubmitForm onSubmit={handleSubmit} />
+          <Action.SubmitForm onSubmit={handleSubmit} title="Add dependencies"/>
         </ActionPanel>
       }
     >
