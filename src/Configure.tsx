@@ -7,7 +7,6 @@ import { BUILD_TOOLS, JAVA_VERSIONS } from "./models/Constants";
 import { Dependencies } from "./Dependencies";
 
 export function Configure() {
-
   const { push } = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const [versions, setVersions] = useState<QuarkusVersion[]>([]);
@@ -30,7 +29,7 @@ export function Configure() {
   }
 
   function handleSubmit(configuration: Configuration) {
-    push(<Dependencies version={version || versions[0]} configuration={configuration} />)
+    push(<Dependencies version={version || versions[0]} configuration={configuration} />);
   }
 
   useEffect(() => {

@@ -106,8 +106,7 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
     configuration.dependencies = deps;
   }
 
-
-  function getUrl(){
+  function getUrl() {
     return getCodeQuarkusUrl(configuration);
   }
 
@@ -146,12 +145,8 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
           <Action.SubmitForm onSubmit={handleSubmit} title="Generate Project" />
           <Action title="Back" onAction={pop} />
           <Action.OpenInBrowser url={getUrl()} />
-          <Action.CopyToClipboard
-            title="Copy Quarkus Configuration"
-            content={getUrl()}
-          />
+          <Action.CopyToClipboard title="Copy Quarkus Configuration" content={getUrl()} />
         </ActionPanel>
-
       }
       navigationTitle={"Add dependencies to your new Quarkus project"}
     >

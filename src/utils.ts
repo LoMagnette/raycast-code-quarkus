@@ -30,6 +30,6 @@ export function getParams(config: Configuration): URLSearchParams {
   return params;
 }
 
-export function getCodeQuarkusUrl(config:Configuration):string{
+export function getCodeQuarkusUrl(config: Configuration): string {
   return `https://code.quarkus.io/?${getParams(config).toString()}`;
 }
