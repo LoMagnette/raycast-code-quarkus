@@ -16,6 +16,12 @@
       "title": "Create Quarkus Project",
       "description": "create a new quarkus project",
       "mode": "view"
+    },
+    {
+      "name": "find-quarkus-extension",
+      "title": "Find Quarkus Extension",
+      "description": "find a quarkus extension",
+      "mode": "view"
     }
   ],
   "dependencies": {

@@ -1,4 +1,5 @@
 import { Configuration } from "./models/Configuration";
+import { BASE_URL } from "./api";
 
 export function getParams(config: Configuration): URLSearchParams {
   const params = new URLSearchParams();
@@ -31,5 +32,5 @@ export function getParams(config: Configuration): URLSearchParams {
 }
 
 export function getCodeQuarkusUrl(config: Configuration): string {
-  return `https://code.quarkus.io/?${getParams(config).toString()}`;
+  return `${BASE_URL}?${getParams(config).toString()}`;
 }

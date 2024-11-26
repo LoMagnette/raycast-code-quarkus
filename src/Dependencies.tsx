@@ -8,6 +8,7 @@ import { Configuration } from "./models/Configuration";
 import { Dependency } from "./models/Dependency";
 import { getCodeQuarkusUrl, getParams } from "./utils";
 import { showInFinder } from "@raycast/api";
+import { BASE_URL, fetchQuarkusExtensions } from "./api";
 
 export function Dependencies({ version, configuration }: { version: QuarkusVersion; configuration: Configuration }) {
   const { pop } = useNavigation();
@@ -17,15 +18,7 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
   async function fetchDependencies() {
     try {
       setIsLoading(true);
-      console.log("Fetching dependencies...");
-      //const response = {ok:false, status:'', statusText:'',json: () => Promise.resolve([])};
-      const response = await fetch(
-        `https://code.quarkus.io/api/extensions/stream/${version.key}?platformOnly=false`,
-        {},
-      );
-
-      console.log("Response status:", response.status);
-
+      const response = await fetchQuarkusExtensions(version.key);
       if (!response.ok) {
         throw new Error(`Failed to fetch Quarkus dependencies: ${response.status} ${response.statusText}`);
       }
@@ -53,7 +46,7 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
   }
 
   function generateQuarkusUrl(config: Configuration): string {
-    const baseUrl = "https://code.quarkus.io/d";
+    const baseUrl = `${BASE_URL}/d`;
     const params = getParams(config);
     return `${baseUrl}?${params.toString()}`;
   }

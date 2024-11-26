@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import fetch from "node-fetch";
 import { Action, ActionPanel, Form, useNavigation } from "@raycast/api";
 import { QuarkusVersion } from "./models/QuarkusVersion";
 import { Configuration } from "./models/Configuration";
 import { BUILD_TOOLS, JAVA_VERSIONS } from "./models/Constants";
 import { Dependencies } from "./Dependencies";
+import { getQuarkusVersion } from "./api";
 
 export function Configure() {
   const { push } = useNavigation();
@@ -14,7 +14,7 @@ export function Configure() {
 
   async function fetchQuarkusVersions() {
     setIsLoading(true);
-    const response = await fetch("https://code.quarkus.io/api/streams", {});
+    const response = await getQuarkusVersion();
     if (!response.ok) {
       setIsLoading(false);
       throw new Error(`Failed to fetch quarkus version: ${response.status} ${response.statusText}`);

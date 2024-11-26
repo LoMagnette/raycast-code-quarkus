@@ -1,5 +1,5 @@
 import { Configure } from "./Configure";
 
-export default function Command() {
+export default function CodeQuarkusCommand() {
   return <Configure />;
 }
