@@ -68,8 +68,8 @@ export function Configure({
           <Action.SubmitForm onSubmit={handleSubmit} title="Add Dependencies" />
         </ActionPanel>
       }
+      navigationTitle={"Configure your new Quarkus project"}
     >
-      <Form.Description text="Configure your new Quarkus project" />
       <Form.Dropdown id="quarkusVersion" title="Quarkus version" onChange={handleVersionChange}>
         {versions.map((v) => (
           <Form.Dropdown.Item key={v.key} value={v.key} title={v?.platformVersion + (v?.lts ? " [LTS]" : "")} />
@@ -84,6 +84,7 @@ export function Configure({
       <Form.Separator />
       <Form.TextField id="group" title="Group" placeholder="org.acme" defaultValue="org.acme" />
       <Form.TextField id="artifact" title="Artifact" placeholder="code.with.quarkus" defaultValue="code.with.quarkus" />
+      <Form.TextField id="version" title="Version" placeholder="1.0.0-SNAPSHOT" defaultValue="1.0.0-SNAPSHOT" />
       <Form.Dropdown id="javaVersion" title="Java version">
         {JAVA_VERSIONS.map((javaVersion) => (
           <Form.Dropdown.Item key={javaVersion} value={javaVersion} title={javaVersion} />

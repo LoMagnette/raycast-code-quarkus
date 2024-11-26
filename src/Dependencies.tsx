@@ -1,11 +1,13 @@
 import fetch from "node-fetch";
-import { Action, ActionPanel, Form, showToast, Toast } from "@raycast/api";
+import { Action, ActionPanel, Form, popToRoot, showToast, Toast } from "@raycast/api";
 import { useEffect, useState } from "react";
 import path from "path";
 import { writeFileSync } from "fs";
 import { QuarkusVersion } from "./models/QuarkusVersion";
 import { Configuration } from "./models/Configuration";
 import { Dependency } from "./models/Dependency";
+import { getCodeQuarkusUrl, getParams } from "./utils";
+import { showInFinder } from "@raycast/api";
 
 export function Dependencies({ version, configuration }: { version: QuarkusVersion; configuration: Configuration }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -51,31 +53,7 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
 
   function generateQuarkusUrl(config: Configuration): string {
     const baseUrl = "https://code.quarkus.io/d";
-    const params = new URLSearchParams();
-
-    // Add the required fields
-    params.set("j", config.javaVersion);
-    params.set("S", config.quarkusVersion);
-    params.set("cn", "code.quarkus.io");
-
-    // Add build tool
-    params.set("b", config.buildTool);
-
-    // Add group ID, artifact ID, and version if provided
-    if (config.group) params.set("g", config.group);
-    if (config.artifact) params.set("a", config.artifact);
-
-    // Add starter code flag
-    params.set("nc", config.starterCode ? "false" : "true");
-
-    // Add dependencies
-    if (config.dependencies) {
-      config.dependencies.forEach((dependency) => {
-        params.append("e", dependency);
-      });
-    }
-
-    // Return the generated URL
+    const params = getParams(config);
     return `${baseUrl}?${params.toString()}`;
   }
 
@@ -105,6 +83,8 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
       const downloadsPath = path.join(homeDir || "", "Downloads", `${configuration.artifact}.zip`);
 
       writeFileSync(downloadsPath, buffer);
+      await showInFinder(downloadsPath);
+      await popToRoot();
 
       await showToast({
         style: Toast.Style.Success,
@@ -123,6 +103,11 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
 
   function setConfigDependencies(deps: string[]) {
     configuration.dependencies = deps;
+  }
+
+
+  function getUrl(){
+    return getCodeQuarkusUrl(configuration);
   }
 
   useEffect(() => {
@@ -158,14 +143,21 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
       actions={
         <ActionPanel>
           <Action.SubmitForm onSubmit={handleSubmit} title="Generate Project" />
+          <Action.OpenInBrowser url={getUrl()} />
+          <Action.CopyToClipboard
+            title="Copy Quarkus Configuration"
+            content={getUrl()}
+          />
         </ActionPanel>
+
       }
+      navigationTitle={"Add dependencies to your new Quarkus project"}
     >
-      <Form.Description text="Add dependencies to your new Quarkus project" />
       <Form.Description title="Quarkus version" text={version?.platformVersion + (version?.lts ? " [LTS]" : "")} />
       <Form.Description title="Build tool" text={configuration.buildTool} />
       <Form.Description title="Group" text={configuration.group} />
       <Form.Description title="Artifact" text={configuration.artifact} />
+      <Form.Description title="Version" text={configuration.version} />
       <Form.Description title="Java version" text={configuration.javaVersion} />
       <Form.Description title="Sarter Code" text={configuration.starterCode ? "Yes" : "No"} />
       <Form.Separator />
