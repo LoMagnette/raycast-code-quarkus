@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { Action, ActionPanel, Form, popToRoot, showToast, Toast } from "@raycast/api";
+import { Action, ActionPanel, Form, popToRoot, showToast, Toast, useNavigation } from "@raycast/api";
 import { useEffect, useState } from "react";
 import path from "path";
 import { writeFileSync } from "fs";
@@ -10,6 +10,7 @@ import { getCodeQuarkusUrl, getParams } from "./utils";
 import { showInFinder } from "@raycast/api";
 
 export function Dependencies({ version, configuration }: { version: QuarkusVersion; configuration: Configuration }) {
+  const { pop } = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const [dependencies, setDependencies] = useState<Dependency[]>([]);
 
@@ -143,6 +144,7 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
       actions={
         <ActionPanel>
           <Action.SubmitForm onSubmit={handleSubmit} title="Generate Project" />
+          <Action title="Back" onAction={pop} />
           <Action.OpenInBrowser url={getUrl()} />
           <Action.CopyToClipboard
             title="Copy Quarkus Configuration"

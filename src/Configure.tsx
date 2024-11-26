@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 import fetch from "node-fetch";
-import { Action, ActionPanel, Form } from "@raycast/api";
+import { Action, ActionPanel, Form, useNavigation } from "@raycast/api";
 import { QuarkusVersion } from "./models/QuarkusVersion";
 import { Configuration } from "./models/Configuration";
 import { BUILD_TOOLS, JAVA_VERSIONS } from "./models/Constants";
+import { Dependencies } from "./Dependencies";
 
-export function Configure({
-  onVersionChange,
-  onConfigurationChange,
-}: {
-  onVersionChange: (newValue: QuarkusVersion) => void;
-  onConfigurationChange: (configuration: Configuration) => void;
-}) {
+export function Configure() {
+
+  const { push } = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const [versions, setVersions] = useState<QuarkusVersion[]>([]);
+  const [version, setVersion] = useState<QuarkusVersion | null>(null);
 
   async function fetchQuarkusVersions() {
     setIsLoading(true);
@@ -28,11 +26,11 @@ export function Configure({
   }
 
   function handleVersionChange(key: string) {
-    onVersionChange(versions.filter((v) => v.key === key)[0]);
+    setVersion(versions.filter((v) => v.key === key)[0]);
   }
 
   function handleSubmit(configuration: Configuration) {
-    onConfigurationChange(configuration);
+    push(<Dependencies version={version || versions[0]} configuration={configuration} />)
   }
 
   useEffect(() => {
