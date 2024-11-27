@@ -15,7 +15,16 @@
       "name": "code-quarkus",
       "title": "Create Quarkus Project",
       "description": "create a new quarkus project",
-      "mode": "view"
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "directory",
+          "description": "The directory were the generated project should be downloaded",
+          "type": "directory",
+          "required": false,
+          "title": "Download directory"
+        }
+      ]
     },
     {
       "name": "find-quarkus-extension",

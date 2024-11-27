@@ -1,5 +1,14 @@
 import fetch from "node-fetch";
-import { Action, ActionPanel, Form, popToRoot, showToast, Toast, useNavigation } from "@raycast/api";
+import {
+  Action,
+  ActionPanel,
+  Form,
+  openCommandPreferences,
+  popToRoot,
+  showToast,
+  Toast,
+  useNavigation,
+} from "@raycast/api";
 import { useEffect, useState } from "react";
 import path from "path";
 import { writeFileSync } from "fs";
@@ -9,11 +18,14 @@ import { Dependency } from "./models/Dependency";
 import { getCodeQuarkusUrl, getParams } from "./utils";
 import { showInFinder } from "@raycast/api";
 import { BASE_URL, fetchQuarkusExtensions } from "./api";
+import { getPreferenceValues } from "@raycast/api";
+import { CodePreferences } from "./models/CodePreferences";
 
 export function Dependencies({ version, configuration }: { version: QuarkusVersion; configuration: Configuration }) {
   const { pop } = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const [dependencies, setDependencies] = useState<Dependency[]>([]);
+  const preferences = getPreferenceValues<CodePreferences>();
 
   async function fetchDependencies() {
     try {
@@ -72,9 +84,14 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
       // Convert the response to a buffer
       const buffer = await response.buffer();
 
-      // Save to Downloads folder (macOS)
       const homeDir = process.env.HOME;
-      const downloadsPath = path.join(homeDir || "", "Downloads", `${configuration.artifact}.zip`);
+      let dir = path.join(homeDir || "", "Downloads");
+      console.log("preferences", JSON.stringify(preferences));
+      if (preferences.directory) {
+        dir = preferences.directory;
+      }
+      const downloadsPath = path.join(dir, `${configuration.artifact}.zip`);
+      console.log("configured directory:", downloadsPath);
 
       writeFileSync(downloadsPath, buffer);
       await showInFinder(downloadsPath);
@@ -139,6 +156,7 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
           <Action title="Back" onAction={pop} />
           <Action.OpenInBrowser url={getUrl()} />
           <Action.CopyToClipboard title="Copy Quarkus Configuration" content={getUrl()} />
+          <Action title="Open Extension Preferences" onAction={openCommandPreferences} />
         </ActionPanel>
       }
       navigationTitle={"Add dependencies to your new Quarkus project"}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Action, ActionPanel, Form, useNavigation } from "@raycast/api";
+import { Action, ActionPanel, Form, openCommandPreferences, useNavigation } from "@raycast/api";
 import { QuarkusVersion } from "./models/QuarkusVersion";
 import { Configuration } from "./models/Configuration";
 import { BUILD_TOOLS, JAVA_VERSIONS } from "./models/Constants";
@@ -63,6 +63,7 @@ export function Configure() {
       actions={
         <ActionPanel>
           <Action.SubmitForm onSubmit={handleSubmit} title="Add Dependencies" />
+          <Action title="Open Extension Preferences" onAction={openCommandPreferences} />
         </ActionPanel>
       }
       navigationTitle={"Configure your new Quarkus project"}
