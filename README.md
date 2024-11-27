@@ -1,6 +1,7 @@
 # Code Quarkus
 
-Generate Quarkus project directly from Raycast, powered by the official https://code.quarkus.io service.
+Generate Quarkus project directly from Raycast, powered by the official https://code.quarkus.io service. 
+You can also easily find the right extension for you project, get the command to add it and easily access its documentation
 
 ## Features
 - Generate Quarkus projects without leaving Raycast
