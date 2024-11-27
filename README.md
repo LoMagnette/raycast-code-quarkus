@@ -31,7 +31,9 @@ Generate Quarkus project directly from Raycast, powered by the official https://
 #### Preferences
 
 After selecting "Create Quarkus Project", you can open the preferences option via the action menu.
+![image](assets/code-quarkus-preferences-action.png)
 In the preferences you are able to select the directory where the generated project will be downloaded.
+![image](assets/code-quarkus-preferences-window.png)
 
 ### Find a Quarkus Extension
 - Open Raycast
