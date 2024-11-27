@@ -5,7 +5,7 @@
   "description": "Create new Quarkus project",
   "icon": "quarkus.png",
   "author": "loic_magnette",
-  "version": "0.1.7-SNAPSHPOT",
+  "version": "0.2.0",
   "categories": [
     "Developer Tools"
   ],
