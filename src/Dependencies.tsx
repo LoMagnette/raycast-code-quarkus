@@ -102,6 +102,7 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
         title: "Project Downloaded",
         message: `Saved to Downloads folder as ${configuration.artifact}.zip`,
       });
+      await popToRoot();
     } catch (error) {
       console.error("Error generating project:", error);
       await showToast({
