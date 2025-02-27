@@ -15,7 +15,7 @@ import { writeFileSync } from "fs";
 import { QuarkusVersion } from "./models/QuarkusVersion";
 import { Configuration } from "./models/Configuration";
 import { Dependency } from "./models/Dependency";
-import { getCodeQuarkusUrl, getParams, unzipFile } from "./utils";
+import { getCodeQuarkusUrl, getParams, openInIDE, unzipFile } from "./utils";
 import { showInFinder } from "@raycast/api";
 import { BASE_URL, fetchQuarkusExtensions } from "./api";
 import { getPreferenceValues } from "@raycast/api";
@@ -95,7 +95,9 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
 
       writeFileSync(downloadsPath, buffer);
       unzipFile(downloadsPath, dir);
-      await showInFinder(path.join(dir, configuration.artifact));
+      const filesPath = path.join(dir, configuration.artifact);
+      await openInIDE(filesPath,'vscodium');
+      await showInFinder(filesPath);
       await popToRoot();
 
       await showToast({
