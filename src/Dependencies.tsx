@@ -94,10 +94,9 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
       console.log("configured directory:", downloadsPath);
 
       writeFileSync(downloadsPath, buffer);
-      unzipFile(downloadsPath, dir);
-      const filesPath = path.join(dir, configuration.artifact);
-      await openInIDE(filesPath,'vscodium');
-      await showInFinder(filesPath);
+
+      await afterDownload(dir);
+      
       await popToRoot();
 
       await showToast({
@@ -114,6 +113,34 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
         message: error instanceof Error ? error.message : "Failed to generate project",
       });
     }
+  }
+
+  async function afterDownload( dir: string): Promise<void> {
+    const directoryPath= path.join(dir, configuration.artifact);
+    const downloadsPath = `${directoryPath}.zip`;
+    if (!preferences.unzip) return;
+    unzipFile(downloadsPath, dir);
+
+    if (preferences.showInFinder) {
+      console.debug("opening finder", directoryPath);
+      await showInFinder(directoryPath);
+    }
+    if(!preferences.openInIDE) {
+      console.debug("Not opening an IDE")
+      return;
+    }
+    if(!preferences.ide){
+      console.warn("Not IDE configured")
+      await showToast({
+        style: Toast.Style.Failure,
+        title: "No IDE selected",
+        message: "Please select an IDE in extension preferences",
+      });
+      return;
+    }
+    await openInIDE(directoryPath, preferences.ide);
+
+
   }
 
   function setConfigDependencies(deps: string[]) {

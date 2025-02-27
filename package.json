@@ -23,6 +23,34 @@
           "type": "directory",
           "required": false,
           "title": "Download directory"
+        },
+        {
+          "name": "unzip",
+          "description": "Do you want to automatically unzip the downloaded archive. If set to false the option to open in IDE will not work",
+          "type": "checkbox",
+          "required": false,
+          "title": "Unzip automatically the archive"
+        },
+        {
+          "name": "showInFinder",
+          "description": "Do you want that the finder opens once the download is done",
+          "type": "checkbox",
+          "required": false,
+          "title": "Show downloaded file in the finder"
+        },
+        {
+          "name": "openInIDE",
+          "description": "Do you want for the extension to automatically open your ide with the project. To use it you need to configure the IDE the extension needs to use",
+          "type": "checkbox",
+          "required": false,
+          "title": "Open the project in my IDE"
+        },
+        {
+          "name": "ide",
+          "description": "The IDE you want to use to open your project",
+          "type": "appPicker",
+          "required": false,
+          "title": "Selected IDE"
         }
       ]
     },
