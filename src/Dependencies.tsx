@@ -96,7 +96,7 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
       writeFileSync(downloadsPath, buffer);
 
       await afterDownload(dir);
-      
+
       await popToRoot();
 
       await showToast({
@@ -115,8 +115,8 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
     }
   }
 
-  async function afterDownload( dir: string): Promise<void> {
-    const directoryPath= path.join(dir, configuration.artifact);
+  async function afterDownload(dir: string): Promise<void> {
+    const directoryPath = path.join(dir, configuration.artifact);
     const downloadsPath = `${directoryPath}.zip`;
     if (!preferences.unzip) return;
     unzipFile(downloadsPath, dir);
@@ -125,12 +125,12 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
       console.debug("opening finder", directoryPath);
       await showInFinder(directoryPath);
     }
-    if(!preferences.openInIDE) {
-      console.debug("Not opening an IDE")
+    if (!preferences.openInIDE) {
+      console.debug("Not opening an IDE");
       return;
     }
-    if(!preferences.ide){
-      console.warn("Not IDE configured")
+    if (!preferences.ide) {
+      console.warn("Not IDE configured");
       await showToast({
         style: Toast.Style.Failure,
         title: "No IDE selected",
@@ -139,8 +139,6 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
       return;
     }
     await openInIDE(directoryPath, preferences.ide);
-
-
   }
 
   function setConfigDependencies(deps: string[]) {

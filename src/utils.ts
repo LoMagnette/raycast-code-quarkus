@@ -32,7 +32,7 @@ export function unzipFile(zipFilePath: string, destinationDir: string) {
     console.log("Extraction complete");
     return true;
   } catch (error) {
-    console.error(`Error extracting zip (${zipFilePath}):`, error, );
+    console.error(`Error extracting zip (${zipFilePath}):`, error);
     throw error;
   }
 }

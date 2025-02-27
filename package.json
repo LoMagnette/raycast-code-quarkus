@@ -30,7 +30,7 @@
           "type": "checkbox",
           "required": false,
           "default": true,
-          "title": "Unzip automatically the archive"
+          "label": "Unzip automatically the archive"
         },
         {
           "name": "showInFinder",
@@ -38,7 +38,7 @@
           "type": "checkbox",
           "required": false,
           "default": false,
-          "title": "Show downloaded file in the finder"
+          "label": "Show downloaded file in the finder"
         },
         {
           "name": "openInIDE",
@@ -46,7 +46,7 @@
           "type": "checkbox",
           "required": false,
           "default": false,
-          "title": "Open the project in my IDE"
+          "label": "Open the project in my IDE"
         },
         {
           "name": "ide",
