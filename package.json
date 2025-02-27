@@ -29,6 +29,7 @@
           "description": "Do you want to automatically unzip the downloaded archive. If set to false the option to open in IDE will not work",
           "type": "checkbox",
           "required": false,
+          "default": true,
           "title": "Unzip automatically the archive"
         },
         {
@@ -36,6 +37,7 @@
           "description": "Do you want that the finder opens once the download is done",
           "type": "checkbox",
           "required": false,
+          "default": false,
           "title": "Show downloaded file in the finder"
         },
         {
@@ -43,6 +45,7 @@
           "description": "Do you want for the extension to automatically open your ide with the project. To use it you need to configure the IDE the extension needs to use",
           "type": "checkbox",
           "required": false,
+          "default": false,
           "title": "Open the project in my IDE"
         },
         {
