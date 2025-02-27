@@ -15,7 +15,7 @@ import { writeFileSync } from "fs";
 import { QuarkusVersion } from "./models/QuarkusVersion";
 import { Configuration } from "./models/Configuration";
 import { Dependency } from "./models/Dependency";
-import { getCodeQuarkusUrl, getParams } from "./utils";
+import { getCodeQuarkusUrl, getParams, unzipFile } from "./utils";
 import { showInFinder } from "@raycast/api";
 import { BASE_URL, fetchQuarkusExtensions } from "./api";
 import { getPreferenceValues } from "@raycast/api";
@@ -94,7 +94,8 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
       console.log("configured directory:", downloadsPath);
 
       writeFileSync(downloadsPath, buffer);
-      await showInFinder(downloadsPath);
+      unzipFile(downloadsPath, dir);
+      await showInFinder(path.join(dir, configuration.artifact));
       await popToRoot();
 
       await showToast({

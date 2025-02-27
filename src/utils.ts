@@ -1,5 +1,18 @@
 import { Configuration } from "./models/Configuration";
 import { BASE_URL } from "./api";
+import AdmZip from "adm-zip";
+
+export function unzipFile(zipFilePath:string, destinationDir:string) {
+  try {
+    const zip = new AdmZip(zipFilePath);
+    zip.extractAllTo(destinationDir, true);
+    console.log('Extraction complete');
+    return true;
+  } catch (error) {
+    console.error('Error extracting zip:', error);
+    throw error;
+  }
+}
 
 export function getParams(config: Configuration): URLSearchParams {
   const params = new URLSearchParams();
