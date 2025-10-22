@@ -2,9 +2,9 @@
 
 ## [Improve UI/UX and enable save configuration] - 2025-10-22
 - Improve general ui 
-- Allow to save prefered configuration
+- Allow saving preferred configuration
 
-## [Allow to automatically unzip and open the IDE] - 2025-02-27
+## [Allow to automatically unzip and open the IDE] - 2025-02-28
 - Allow to automatically unzip the downloaded archive
 - Allow to automatically open the project in your favorite IDE
 - Allow the user to configure : auto-unzip, show in finder, open in IDE, favorite IDE
