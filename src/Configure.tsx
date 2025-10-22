@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Action, ActionPanel, Form, openCommandPreferences, useNavigation } from "@raycast/api";
+import { Action, ActionPanel, Form, openCommandPreferences, useNavigation, showToast, Toast, Icon } from "@raycast/api";
 import { QuarkusVersion } from "./models/QuarkusVersion";
 import { Configuration } from "./models/Configuration";
 import { BUILD_TOOLS, JAVA_VERSIONS } from "./models/Constants";
@@ -9,19 +9,38 @@ import { getQuarkusVersion } from "./api";
 export function Configure() {
   const { push } = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [versions, setVersions] = useState<QuarkusVersion[]>([]);
   const [version, setVersion] = useState<QuarkusVersion | null>(null);
 
   async function fetchQuarkusVersions() {
-    setIsLoading(true);
-    const response = await getQuarkusVersion();
-    if (!response.ok) {
+    try {
+      setIsLoading(true);
+      setError(null);
+      const response = await getQuarkusVersion();
+      if (!response.ok) {
+        throw new Error(`Failed to fetch Quarkus versions: ${response.status} ${response.statusText}`);
+      }
+      const versions = (await response.json()) as QuarkusVersion[];
+      setVersions(versions);
       setIsLoading(false);
-      throw new Error(`Failed to fetch quarkus version: ${response.status} ${response.statusText}`);
+
+      await showToast({
+        style: Toast.Style.Success,
+        title: "Success",
+        message: `Loaded ${versions.length} Quarkus versions`,
+      });
+    } catch (err) {
+      setIsLoading(false);
+      const errorMessage = err instanceof Error ? err.message : "Failed to load Quarkus versions";
+      setError(errorMessage);
+
+      await showToast({
+        style: Toast.Style.Failure,
+        title: "Error",
+        message: errorMessage,
+      });
     }
-    const versions = (await response.json()) as QuarkusVersion[];
-    setVersions(versions);
-    setIsLoading(false);
   }
 
   function handleVersionChange(key: string) {
@@ -39,22 +58,30 @@ export function Configure() {
   if (isLoading) {
     return (
       <Form>
-        <Form.Description text="Loading Quarkus version... Please wait." />
+        <Form.Description text="🔄 Loading Quarkus versions from code.quarkus.io..." />
+        <Form.Description text="Please wait while we fetch the latest versions." />
       </Form>
     );
   }
-  if (!versions) {
+
+  if (error || !versions || versions.length === 0) {
     return (
-      <Form>
-        <Form.Description text="Failed to load dependencies. Please try again." />
-        <ActionPanel>
-          <Action
-            title="Retry"
-            onAction={() => {
-              fetchQuarkusVersions();
-            }}
-          />
-        </ActionPanel>
+      <Form
+        actions={
+          <ActionPanel>
+            <Action
+              title="Retry"
+              icon={Icon.RotateClockwise}
+              onAction={() => {
+                fetchQuarkusVersions();
+              }}
+            />
+            <Action title="Open Extension Preferences" icon={Icon.Gear} onAction={openCommandPreferences} />
+          </ActionPanel>
+        }
+      >
+        <Form.Description text="❌ Failed to load Quarkus versions" />
+        <Form.Description text={error || "Unable to connect to code.quarkus.io. Please check your internet connection and try again."} />
       </Form>
     );
   }
@@ -62,8 +89,8 @@ export function Configure() {
     <Form
       actions={
         <ActionPanel>
-          <Action.SubmitForm onSubmit={handleSubmit} title="Add Dependencies" />
-          <Action title="Open Extension Preferences" onAction={openCommandPreferences} />
+          <Action.SubmitForm icon={Icon.ArrowRight} onSubmit={handleSubmit} title="Add Dependencies" />
+          <Action title="Open Extension Preferences" icon={Icon.Gear} onAction={openCommandPreferences} />
         </ActionPanel>
       }
       navigationTitle={"Configure your new Quarkus project"}
