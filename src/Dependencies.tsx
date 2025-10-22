@@ -218,14 +218,7 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
       <Form.TagPicker id="dependencies" title="Dependencies" onChange={setConfigDependencies}>
         {dependencies.map((dep) => {
           const icon = dep.platform ? Icon.Star : dep.providesExampleCode ? Icon.Code : Icon.Box;
-          return (
-            <Form.TagPicker.Item
-              key={dep.id + ":" + dep.order}
-              value={dep.id}
-              title={dep.name}
-              icon={icon}
-            />
-          );
+          return <Form.TagPicker.Item key={dep.id + ":" + dep.order} value={dep.id} title={dep.name} icon={icon} />;
         })}
       </Form.TagPicker>
     </Form>

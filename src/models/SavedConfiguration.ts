@@ -1,4 +1,3 @@
-
 export interface SavedConfiguration {
   quarkusVersionKey?: string;
   buildTool?: string;

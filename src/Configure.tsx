@@ -1,12 +1,21 @@
 import { useEffect, useState } from "react";
-import { Action, ActionPanel, Form, openCommandPreferences, useNavigation, showToast, Toast, Icon, LocalStorage } from "@raycast/api";
+import {
+  Action,
+  ActionPanel,
+  Form,
+  openCommandPreferences,
+  useNavigation,
+  showToast,
+  Toast,
+  Icon,
+  LocalStorage,
+} from "@raycast/api";
 import { QuarkusVersion } from "./models/QuarkusVersion";
 import { Configuration } from "./models/Configuration";
 import { BUILD_TOOLS, JAVA_VERSIONS } from "./models/Constants";
 import { Dependencies } from "./Dependencies";
 import { getQuarkusVersion } from "./api";
 import { SavedConfiguration } from "./models/SavedConfiguration";
-
 
 export function Configure() {
   const { push } = useNavigation();
@@ -116,7 +125,9 @@ export function Configure() {
         }
       >
         <Form.Description text="❌ Failed to load Quarkus versions" />
-        <Form.Description text={error || "Unable to connect to code.quarkus.io. Please check your internet connection and try again."} />
+        <Form.Description
+          text={error || "Unable to connect to code.quarkus.io. Please check your internet connection and try again."}
+        />
       </Form>
     );
   }
@@ -140,23 +151,14 @@ export function Configure() {
           <Form.Dropdown.Item key={v.key} value={v.key} title={v?.platformVersion + (v?.lts ? " [LTS]" : "")} />
         ))}
       </Form.Dropdown>
-      <Form.Dropdown
-        id="buildTool"
-        title="Build tool"
-        defaultValue={savedConfig?.buildTool}
-      >
+      <Form.Dropdown id="buildTool" title="Build tool" defaultValue={savedConfig?.buildTool}>
         {BUILD_TOOLS.map((tool) => (
           <Form.Dropdown.Item key={tool.value} value={tool.value} title={tool.title} />
         ))}
       </Form.Dropdown>
 
       <Form.Separator />
-      <Form.TextField
-        id="group"
-        title="Group"
-        placeholder="org.acme"
-        defaultValue={savedConfig?.group || "org.acme"}
-      />
+      <Form.TextField id="group" title="Group" placeholder="org.acme" defaultValue={savedConfig?.group || "org.acme"} />
       <Form.TextField
         id="artifact"
         title="Artifact"
@@ -169,11 +171,7 @@ export function Configure() {
         placeholder="1.0.0-SNAPSHOT"
         defaultValue={savedConfig?.version || "1.0.0-SNAPSHOT"}
       />
-      <Form.Dropdown
-        id="javaVersion"
-        title="Java version"
-        defaultValue={savedConfig?.javaVersion}
-      >
+      <Form.Dropdown id="javaVersion" title="Java version" defaultValue={savedConfig?.javaVersion}>
         {JAVA_VERSIONS.map((javaVersion) => (
           <Form.Dropdown.Item key={javaVersion} value={javaVersion} title={javaVersion} />
         ))}

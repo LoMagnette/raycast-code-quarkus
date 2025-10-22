@@ -113,56 +113,56 @@ export default function FindQuarkusExtensionCommand() {
             icon={icon}
             accessories={accessories}
             actions={
-            <ActionPanel title={dep.name}>
-              <Action.CopyToClipboard
-                icon={Icon.Terminal}
-                title="Copy CLI Command"
-                content={getClipboard("cli", dep)}
-                onCopy={() => popToRoot()}
-              />
-              <Action.OpenInBrowser icon={Icon.Book} title="Open Extension Guide" url={dep.guide} />
-              <ActionPanel.Section title="Build Tools">
+              <ActionPanel title={dep.name}>
                 <Action.CopyToClipboard
-                  icon={Icon.Clipboard}
-                  title="Copy Maven Command"
-                  content={getClipboard("maven", dep)}
+                  icon={Icon.Terminal}
+                  title="Copy Cli Command"
+                  content={getClipboard("cli", dep)}
                   onCopy={() => popToRoot()}
                 />
-                <Action.CopyToClipboard
-                  icon={Icon.Clipboard}
-                  title="Copy Gradle Command"
-                  content={getClipboard("gradle", dep)}
-                  onCopy={() => popToRoot()}
-                />
-                <Action.CopyToClipboard
-                  icon={Icon.Code}
-                  title="Copy Gradle Kotlin DSL"
-                  content={getClipboard("gradle.kts", dep)}
-                  onCopy={() => popToRoot()}
-                />
-              </ActionPanel.Section>
-              <ActionPanel.Section title="Dependency Snippets">
-                <Action.CopyToClipboard
-                  icon={Icon.Code}
-                  title="Copy Maven XML Snippet"
-                  content={getClipboard("maven-snippet", dep)}
-                  onCopy={() => popToRoot()}
-                />
-                <Action.CopyToClipboard
-                  icon={Icon.Code}
-                  title="Copy Gradle Snippet"
-                  content={getClipboard("gradle-snippet", dep)}
-                  onCopy={() => popToRoot()}
-                />
-              </ActionPanel.Section>
+                <Action.OpenInBrowser icon={Icon.Book} title="Open Extension Guide" url={dep.guide} />
+                <ActionPanel.Section title="Build Tools">
+                  <Action.CopyToClipboard
+                    icon={Icon.Clipboard}
+                    title="Copy Maven Command"
+                    content={getClipboard("maven", dep)}
+                    onCopy={() => popToRoot()}
+                  />
+                  <Action.CopyToClipboard
+                    icon={Icon.Clipboard}
+                    title="Copy Gradle Command"
+                    content={getClipboard("gradle", dep)}
+                    onCopy={() => popToRoot()}
+                  />
+                  <Action.CopyToClipboard
+                    icon={Icon.Code}
+                    title="Copy Gradle Kotlin Dsl"
+                    content={getClipboard("gradle.kts", dep)}
+                    onCopy={() => popToRoot()}
+                  />
+                </ActionPanel.Section>
+                <ActionPanel.Section title="Dependency Snippets">
+                  <Action.CopyToClipboard
+                    icon={Icon.Code}
+                    title="Copy Maven Xml Snippet"
+                    content={getClipboard("maven-snippet", dep)}
+                    onCopy={() => popToRoot()}
+                  />
+                  <Action.CopyToClipboard
+                    icon={Icon.Code}
+                    title="Copy Gradle Snippet"
+                    content={getClipboard("gradle-snippet", dep)}
+                    onCopy={() => popToRoot()}
+                  />
+                </ActionPanel.Section>
 
-              <Action.CopyToClipboard
-                icon={Icon.Text}
-                title="Copy Coordinates (GAV)"
-                content={getClipboard("groupId", dep)}
-                onCopy={() => popToRoot()}
-              />
-            </ActionPanel>
+                <Action.CopyToClipboard
+                  icon={Icon.Text}
+                  title="Copy Coordinates (gav)"
+                  content={getClipboard("groupId", dep)}
+                  onCopy={() => popToRoot()}
+                />
+              </ActionPanel>
             }
           />
         );
