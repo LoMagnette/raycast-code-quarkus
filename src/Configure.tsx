@@ -5,6 +5,7 @@ import { Configuration } from "./models/Configuration";
 import { BUILD_TOOLS, JAVA_VERSIONS } from "./models/Constants";
 import { Dependencies } from "./Dependencies";
 import { getQuarkusVersion } from "./api";
+import { SavedConfiguration } from "./models/SavedConfiguration";
 
 
 export function Configure() {

@@ -207,13 +207,13 @@ export function Dependencies({ version, configuration }: { version: QuarkusVersi
       }
       navigationTitle={"Add dependencies to your new Quarkus project"}
     >
-      <Form.Description title="Quarkus version" text={version?.platformVersion + (version?.lts ? " [LTS]" : "")} />
-      <Form.Description title="Build tool" text={configuration.buildTool} />
-      <Form.Description title="Group" text={configuration.group} />
-      <Form.Description title="Artifact" text={configuration.artifact} />
-      <Form.Description title="Version" text={configuration.version} />
-      <Form.Description title="Java version" text={configuration.javaVersion} />
-      <Form.Description title="Starter Code" text={configuration.starterCode ? "Yes" : "No"} />
+      <Form.Description text={`Quarkus version: ${version?.platformVersion + (version?.lts ? " [LTS]" : "")}`} />
+      <Form.Description text={`Build tool: ${configuration.buildTool}`} />
+      <Form.Description text={`Group: ${configuration.group}`} />
+      <Form.Description text={`Artifact: ${configuration.artifact}`} />
+      <Form.Description text={`Version: ${configuration.version}`} />
+      <Form.Description text={`Java version: ${configuration.javaVersion}`} />
+      <Form.Description text={`Starter Code: ${configuration.starterCode ? "Yes" : "No"}`} />
       <Form.Separator />
       <Form.TagPicker id="dependencies" title="Dependencies" onChange={setConfigDependencies}>
         {dependencies.map((dep) => {
